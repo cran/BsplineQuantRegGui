@@ -1,0 +1,72 @@
+#BsplineQuantRegGui 0.2.2
+### Fixes :
+- update end knots multiplicities according to degree.
+- temp data without scaling years
+- updating auto_knot/manual_knot
+- prevent problem of core program if version 0.2.4 with exeption and warning
+
+
+### Problem of core program version 0.2.4:
+- for degree=1: monotone regression with knot multiplicities cuase the solvers to hang
+(fixed in version 0.2.5).
+
+
+# BsplineQuantRegGui 0.2.1
+### Changes
+- add view human readable coefficents for the fitted spline
+- add view derivatives (plots and coefficents)
+- enhance R code output with additional information
+- move demo in a demo tab
+- enhance test with complete helper that copies the "FUNCTION SECTION" of the App.R
+
+
+# BsplineQuantRegGui 0.2.0
+###Changes
+- add specific tests for the version
+- add basis view tab
+- add knot multiplicity management compatible with global
+constraints and basis view
+- improve  knots managenemt (removing, adding)
+- secure end knots management, with multiplicity
+
+
+#BsplineQuantRegGui 0.1.1
+###Changes
+- add tests
+
+
+# BsplineQuantRegGui 0.1.0
+
+## Initial Release (2026-07-26)
+
+### Features
+
+- Interactive Shiny interface for BsplineQuantReg
+- Support for multiple data sources:
+  - Test datasets
+  - Temperature data (1880-1992)
+  - Custom mathematical functions
+  - CSV and Excel file import
+- Interactive knot management:
+  - Add/remove knots by clicking on the plot
+  - Automatic knot distribution
+- Constraint specification:
+  - Uniform constraints across all intervals
+  - Per-region constraints with visual selection
+  - Support for monotonicity, convexity, and 3rd derivative constraints
+- Visualization:
+  - Interactive plotly graphics with zoom and pan
+  - Multiple curve overlays
+  - Customizable curve colors
+  - Region highlighting
+- Analysis tools:
+  - Summary statistics
+  - Coefficient display
+  - R code generation for reproducibility
+- Demo integration:
+  - Run all BsplineQuantReg demos from the interface
+- User experience:
+  - Clean, modern UI with flatly theme
+  - Progress indicators
+  - Comprehensive error messages
+  - Tabbed interface for organized information display

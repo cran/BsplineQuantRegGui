@@ -1,0 +1,42 @@
+# inst/CITATION
+# Citation file for 'BsplineQuantRegGui' package
+
+citHeader("To cite the 'BsplineQuantRegGui' package in publications, please use:")
+
+# 1. R GUI package
+bibentry(
+  bibtype = "Manual",
+  title = "BsplineQuantRegGui: Interactive GUI for B-Spline Quantile Regression",
+  author = c(person(given = "Alexandre", family = "Abbes")),
+  year = "2026",
+  note = paste("R package version 0.1.0"),
+  url = "https://github.com/alexandreabbes/bsplinequantreggui/releases/",
+)
+
+# 2. Underlying R package ('BsplineQuantReg')
+bibentry(
+  bibtype = "Manual",
+  title = "BsplineQuantReg: Constrained Quantile Regression with B-Splines (Degrees 1 to 4)",
+  author = c(person(given = "Alexandre", family = "Abbes")),
+  year = "2026",
+  note = paste("R package version >=0.2.2"),
+  url = "https://cran.r-project.org/package=BsplineQuantReg",
+)
+
+# 3. Main method article
+bibentry(
+  bibtype = "Article",
+  title = "Quantile Regression with Cubic Polynomial Splines under Shape Constraints with Applications",
+  author = c(person(given = "Alexandre", family = "Abbes")),
+  year = "2026",
+  journal = "Zenodo",
+  doi = "10.5281/zenodo.17427913",
+  url = "https://doi.org/10.5281/zenodo.17427913",
+  textVersion = paste(
+    "Abbes, A. (2026).",
+    "Quantile Regression with Cubic Polynomial Splines under Shape Constraints with Applications.",
+    "Zenodo. doi:10.5281/zenodo.17427913"
+  )
+)
+
+

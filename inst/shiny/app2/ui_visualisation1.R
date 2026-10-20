@@ -1,0 +1,91 @@
+column(12,
+fluidRow(column(2,  actionButton("add_knot_mode","Add knot",class = "btn-sm btn-primary",
+               style = "background-color:#FFDD00; color:#000000")),
+         column(2,actionButton("clear_manual_knots", "Clear manual knots", class = "btn-sm btn-danger")
+                ),
+         column(2,actionButton("remove_knot", "Remove selected knot", class = "btn-sm btn-warning")
+                )),
+
+fluidRow(
+      column(3,h5("Selected Knot:")),
+      column(4, verbatimTextOutput("selected_knot_display") ),
+         " "),
+
+                               #conditionalPanel(condition = "output.selected_knot_display != 'No knot selected'"))
+                #)
+
+ br(),
+
+   plotlyOutput("spline_plot", height = "600px",width="100%"),
+
+
+         br(),
+         #MULTIPLICITY
+         h5(
+          checkboxInput("Consider_multiplicity_main","Consider Internal Multiplicities (Warning: Degree=1 and any Multiplicity>1 cannot handle constraints)", value=TRUE )),
+          withMathJax(" \\( Multiplicity:~m,~Degree:~d~ \\Rightarrow ~minimum~regularity~at~knot~is~ C^{d-m}.~\\) "),
+          withMathJax("\\( m=d+1\\Rightarrow C^{-1}:~ discontinuous\\) "),
+         h5("Increase/Decrease Multiplicity of selected knot:"),
+         column(8, actionButton("inc_multiplicity", "+", class = "btn-sm btn-primary"),
+                actionButton("dec_multiplicity", "-", class = "btn-sm btn-warning"),
+                # Information (unique)
+                fluidRow(
+                  #column(9, h5("Information"), verbatimTextOutput("fit_info")),
+                  column(9, h5("List of knots / multiplicities"),
+                         verbatimTextOutput("knots_compact", placeholder = TRUE),
+                         h5("Coefficients on the Bspline Basis"),
+                         verbatimTextOutput("coeff_list", placeholder = TRUE)
+                  )
+
+                ),
+         ), #end modify mult
+         #=====================================================
+         # ============ AFFICHAGE DES COEFFICIENTS ============
+
+         fluidRow(
+           column(
+             9,
+             checkboxInput("show_coefficients","Bspline basis polynomial coefficients display:",TRUE),
+             conditionalPanel(
+               condition = "input.show_coefficients",
+               radioButtons(
+                 "local","",
+                 choices = c("Canonical (1, x, x²...)" = "FALSE",
+                             "Local ((x-a)^i) for each knot a" = "TRUE"),
+                 selected = "TRUE",
+                 inline = TRUE
+               ),
+               verbatimTextOutput("bspline_coeff", placeholder = TRUE)
+             )
+           )) ,
+
+
+
+         # ============================================================
+         # SECTION 3 : DÉRIVÉES SUCCESSIVES
+         # ============================================================
+
+         fluidRow(
+           column(12,
+                  h4("Derivatives", class = "text-primary"),
+
+                  # Boutons radio pour sélectionner les dérivées à afficher
+                  radioButtons(
+                    "deriv_display",
+                    "Display derivatives:",
+                    choices = c(
+                      "None" = "none",
+                      "1st derivative" = "1",
+                      "1st & 2nd" = "2",
+                      "1st, 2nd & 3rd" = "3"
+                    ),
+                    selected = "none",
+                    inline = TRUE
+                  )
+           ),
+           uiOutput("derivatives_ui") #end tab derivatives
+
+         )
+)
+
+

@@ -10,6 +10,8 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libcurl4-openssl-dev \
     git \
+    libgmp-dev \
+    cmake \
     libwebpmux3 \
     && rm -rf /var/lib/apt/lists/*
 
@@ -26,24 +28,14 @@ RUN R -e "remotes::install_version('CVXR', version = '1.9.1', repos = 'https://c
 RUN R -e "remotes::install_github('alexandreabbes/BsplineQuantReg', ref = 'with_quartic', upgrade='never')"
 
 # Installer BsplineQuantRegGui (pour les dépendances)
-RUN R -e "remotes::install_github('alexandreabbes/BsplineQuantRegGui', ref = 'main3', version='0.2.2')"
+RUN R -e "remotes::install_github('alexandreabbes/BsplineQuantRegGui', ref = 'main3', upgrade='never')
 
-# Copier le code source dans le conteneur
-#COPY . /app
 
-# Vérifier le contenu pour le debug
-#RUN ls -la /app/inst/shiny/
-
-#EXPOSE 3838
-
-# Lancer l'application (version avancée par défaut)
-#CMD ["R", "-e", "shiny::runApp('/app/inst/shiny/app2)"]
-
-# Copier le code source
 COPY . /app
 WORKDIR /app
 
 # Créer un script de lancement
+
 RUN echo '#!/bin/bash\n\
 if [ -z "$APP_VERSION" ]; then\n\
   APP_VERSION="advanced"\n\

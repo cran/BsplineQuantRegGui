@@ -8,7 +8,7 @@
 
 The package is available on CRAN.
 
-The underlying 'BsplineQuantReg' package provides the core regression methods for B-spline quantile regression with Karlin-Studden polynomial sign characterization, including degrees 1 to 4. It provides a small set of robust functions in pure R for polynomial calculation, piecewise polynomial and B-spline manipulation, including differentiation, B-spline coefficients calculations and transformation to PP-form, evaluation of splines and pp polynomial as functions, and coefficients display in human readable form.
+The underlying 'BsplineQuantReg' package provides the core regression methods for B-spline quantile regression with Karlin-Studden polynomial sign characterization, including degrees 1 to 4. From the version 2.3, the degrees 0 and greater than 5 are also available. It also provides a small set of robust functions in pure R for polynomial calculation, piecewise polynomial and B-spline manipulation, including differentiation, B-spline coefficients calculations and transformation to PP-form, evaluation of splines and pp polynomial as functions, and coefficients display in human readable form.
 
 ## Features
 
@@ -16,7 +16,7 @@ This GUI application makes it easy to:
 
 - Load and visualize data (from multiple data sources: custom function, CSV files)
 - Interactive plotting: zoom, pan, and add knots by clicking on the plot
-- Configure B-spline parameters (degree 1 to 4), visualise the basis.
+- Configure B-spline parameters (degree 0 to 4 for constraints, and more than 5), visualise the basis.
 - Plot multiple curves with color management
 - Apply shape constraints (monotonicity, convexity, third derivative)
 - Manage constraints per region interactively
@@ -24,8 +24,8 @@ This GUI application makes it easy to:
 - Export reproducible R code
 - Run demo presets directly from the interface (according to degree)
 - Type of regression : quantile or mean-square (for 'BsplineQuantReg' version \>=0.2.3)
-- add/remove manual knots and their multiplicity.
-- control constraints vith derivatives.
+- Add/remove auto nknots, and manual knots with their multiplicities, see the corresponding basis with singularities.
+- control the application of constraints with derivatives.
 
 ## Installation
 
@@ -71,30 +71,18 @@ Then open the local adress "127.0.0.1:3838" in your browser (remove the quotes).
 
 ## Requirements
 
-### Core Package
+### Core Package 
 
-- **Minimum version**: 'BsplineQuantReg' \>= 0.2.2 (Basic mode)
-- **Recommended version**: 'BsplineQuantReg' \>= 0.2.5 (All features)
+'BsplineQuantReg' \>= 0.2.2 (Basic mode) or \>= 0.2.6 (All features)
 
 ### Version Compatibility
 
 | GUI Version | Core Version | Mode     | Features                         |
 |-------------|--------------|----------|----------------------------------|
-| v0.2.2      | \>= 0.2.2    | Basic    | Standard regression, constraints |
-| v0.2.2      | \>= 0.2.5    | Advanced | All features incl. multiplicity  |
+| 0.2.3       | \>= 0.2.2    | Basic    | Standard regression, constraints |
+| 0.2.3       | 0.2.6        | Advanced | All features incl. multiplicity  |
 
-This package depends on:
 
-| Package | Purpose |
-|----|----|
-| 'BsplineQuantReg' (\>= 0.2.5) | Core regression functions |
-| 'shiny' | Interactive web framework |
-| 'plotly' | Interactive graphics |
-| 'DT' | Interactive tables |
-| 'shinythemes' | UI themes |
-| 'shinyjs' | Enhanced JavaScript capabilities |
-| 'colourpicker' | Color selection widget |
-| 'ECOSolveR' | A good solver that causes no problem to compile |
 
 ## Usage Guide
 
@@ -103,27 +91,41 @@ This package depends on:
 - Click Test to generate sample data
 - Click Temp to load the global temperature dataset (1880-1992)
 - Click CSV to import your own data file
-- Adjust x range field, the number n of geerated samples
+- Adjust x range field, the number n of generated samples
 - Use the Custom function field to define your own data generator
 
 ### 2. Spline Configuration
 
-- Select Degree (1 to 4)
-- Adjust Auto knots count (placed as quantiles of knots)
-- Click Add knot to enter manual knot placement mode, then click on the plot. The two lists of knots auto and manual are joined.
-- Click Clear knots to clear manual knots
-- Click on a knot to select it, click on "remove knot" to remove it.
+- Select Degree (1 to 4 is standard for constraints, but possible 0 to any)
+
+- Knots:
+
+  \> - Adjust Auto knots count (placed as quantiles of knots)
+
+  \> - Click Add knot to enter manual knot placement mode, then click on the plot. The two lists of knots auto and manual are almost independant and joined.
+
+  \> - Click Clear knots to clear manual knots
+
+  \> - Click on a knot to select it, click on "remove knot" to remove it.
 
 ### 3.Knots multiplicity
 
--select or un-select "consider multiplicity"" -click on a knot to select it -adjust multiplicity with + or -. Multiplicity of a knot is limited to degree+1
+- select or un-select "consider multiplicity"
 
-### 3b. View basis
+- click on a knot to select it
+
+- adjust multiplicity with + or -. Multiplicity of a knot is limited to degree+1
+
+  ### 3b. View basis
 
 - go to the basis tab
+
 - select or un-select "consider multiplicity"
+
 - Chose a derivative level
+
 - Check the knots and their multiplicities
+
 - click "update basis" to view the Bspline Basis.
 
 ### 4. Constraints
@@ -138,10 +140,12 @@ This package depends on:
 
 ### 4. Run Analysis
 
+- Select the type of regression:quantile ($L^1$ asymmetric absolute value) or mean ($L^2$ quadratic).
+- Set the desired quantile.
 - Click Run to execute the regression with your chosen solver and type of regression ('BsplineQuantReg' \>= '0.2.3')
 - View results: the curve and the Information. Coefficients (on the B-spline Basis)
-- View equations of the spline ij pp form in a human readable form
-- View derivatives and check the constraints
+- Equations of the spline in pp-form in a human readable form: (Des)Activate view.
+- Derivatives and check the constraints: (Des)Activate View.
 - View verbose output in the Console tab if verbose = TRUE is selected
 - Informations: Degree, tau, constraints, knots and coefficients
 - Data: Summary and table of the data
@@ -152,11 +156,11 @@ This package depends on:
 
 ### 4c Check output in console
 
-- select "verbose" to print verbose aoutput in the console tab.
+- select "verbose" to print verbose output in the console tab.
 
 ### 5. Run Demos
 
-- Click on any demo to run it, and visualise in the demo tab. The degree of the spline is that selected in the GUI.
+- Click on any demo to run and visualise it in the demo tab. The degree of the spline is that selected in the GUI.
 
 ## Citation
 
@@ -166,7 +170,7 @@ If you use this package in your research, please cite:
 
 @Article{Abbes2025, author = {Alexandre Abbes}, title = {Quantile Regression with Cubic Polynomial Splines under Shape Constraints with Applications}, year = {2025}, doi = {10.5281/zenodo.17427913} }
 
-@Manual{Abbes2026R, author = {Alexandre Abbes}, title = {BsplineQuantReg: Quantile Regression with B-Splines of Degrees 1 to 4}, year = {2026}, note = {R package version 0.2.0}, url = {<https://cran.r-project.org/package=BsplineQuantReg>} }
+@Manual{Abbes2026R, author = {Alexandre Abbes}, title = {BsplineQuantReg: Quantile Regression with B-Splines of any degree, shape constraints for Degrees 0 to 4}, year = {2026}, note = {R package version 0.2.0}, url = {<https://cran.r-project.org/package=BsplineQuantReg>} }
 
 ## License
 
